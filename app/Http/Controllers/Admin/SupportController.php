@@ -14,5 +14,14 @@ class SupportController extends Controller
 
         return view('admin/supports/index', compact('supports'));
     }
+
+    public function create()
+    {
+        return view('admin/supports/create');
+    }
+
+    public function store(Request $request)
+    {
+        dd($request->all());
+    }
 }
-https://www.youtube.com/watch?list=PLVSNL1PHDWvQ1N6fqhQ5HQzFtN-xrkjNU&v=7I_uIELCbu4
