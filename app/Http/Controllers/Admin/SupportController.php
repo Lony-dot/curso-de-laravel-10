@@ -40,4 +40,30 @@ class SupportController extends Controller
         $support =  $support->create($data);
         return redirect()->route('supports.index');
     }
+
+    public function edit(Support $support, string | int $id)
+    {
+        if(!$support = $support->where('id', $id)->first()) {
+            return back();
+        }
+
+        return view('admin/supports.edit', compact('support'));
+    }
+
+    public function update(Request $request, Support $support, string $id)
+    {
+
+         
+        if(!$support = Support::find($id)) {
+            return back();
+        }
+
+        $support->update($request->only([
+            'subject', 'body'
+        ]));
+
+        return redirect()->route('supports.index');
+    }
+
+
 }
