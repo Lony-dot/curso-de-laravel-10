@@ -15,6 +15,18 @@ class SupportController extends Controller
         return view('admin/supports/index', compact('supports'));
     }
 
+    public function show(string|int $id)
+    {
+        //Support::find($id)
+        //Support::where('id', '$id')->first //where: onde id é igual o valor de $id e recupera o primeiro valor usando first
+        if(!$support = Support::find($id)) {
+            return back();
+        }
+        //dd($support->subject);
+
+        return view('admin/supports/show', compact('support'));
+    }
+
     public function create()
     {
         return view('admin/supports/create');
