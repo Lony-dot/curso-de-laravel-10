@@ -53,7 +53,7 @@ class SupportController extends Controller
     public function update(Request $request, Support $support, string $id)
     {
 
-         
+
         if(!$support = Support::find($id)) {
             return back();
         }
@@ -61,6 +61,16 @@ class SupportController extends Controller
         $support->update($request->only([
             'subject', 'body'
         ]));
+
+        return redirect()->route('supports.index');
+    }
+
+    public function destroy(string | int $id)
+    {
+        if(!$support = Support::find($id)) {
+            return back();
+        }
+        $support->delete();
 
         return redirect()->route('supports.index');
     }
