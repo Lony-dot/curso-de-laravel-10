@@ -2,19 +2,17 @@
 
 namespace App\Services;
 
-use App\DTO\CreateSupportDTO;
-use App\DTO\UpdateSupportDTO;
+use App\DTO\Supports\CreateSupportDTO;
+use App\DTO\Supports\UpdateSupportDTO;
+use App\Repositories\PaginationInterface;
+use App\Repositories\SupportRepositoryInterface;
 use stdClass;
 
 class SupportService
 {
-
-    protected $repository;
-
-    public function __construct()
-    {
-
-    }
+    public function __construct(
+        protected SupportRepositoryInterface $repository,
+    ) {}
 
     public function getAll(string $filter = null): array
     {
@@ -33,7 +31,7 @@ class SupportService
 
     public function update(UpdateSupportDTO $dto): stdClass|null
     {
-       return $this->repository->update($dto);
+        return $this->repository->update($dto);
     }
 
     public function delete(string $id): void
