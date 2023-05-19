@@ -19,7 +19,7 @@ class SupportService
         int $totalPerPage = 15,
         string $filter = null
 
-    ) {
+    ): PaginationInterface {
        return $this->repository->paginate(
             page: $page,
             totalPerPage: $totalPerPage,

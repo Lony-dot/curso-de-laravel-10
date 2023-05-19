@@ -8,24 +8,23 @@ use stdClass;
 class PaginationPresenter implements PaginationInterface
 {
     /**
-     *@var stdClass[]
+     * @var stdClass[]
      */
     private array $items;
-
 
     public function __construct(
         protected LengthAwarePaginator $paginator,
     ) {
-       $this->items = $this->resolveItems($this->paginator->items());
+        $this->items = $this->resolveItems($this->paginator->items());
     }
 
-     /**
+    /**
      * @return stdClass[]
      */
     public function items(): array
     {
-        return $this->items();
-        //return $this->paginator->items();
+        return $this->items;
+        // return $this->paginator->items();
     }
 
     public function total(): int
@@ -63,9 +62,8 @@ class PaginationPresenter implements PaginationInterface
         $response = [];
         foreach ($items as $item) {
             $stdClassObject = new stdClass;
-            foreach ($item->toArray() as $key => $value){
+            foreach ($item->toArray() as $key => $value) {
                 $stdClassObject->{$key} = $value;
-
             }
             array_push($response, $stdClassObject);
         }

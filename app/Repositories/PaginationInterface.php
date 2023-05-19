@@ -15,4 +15,3 @@ interface PaginationInterface
     public function getNumberNextPage(): int;
     public function getNumberPreviousPage(): int;
 }
-
