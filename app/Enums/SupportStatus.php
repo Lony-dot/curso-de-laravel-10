@@ -17,6 +17,5 @@ enum SupportStatus: string
         }
 
         throw new \ValueError("$status is not a valid");
-
     }
 }
