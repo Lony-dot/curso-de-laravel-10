@@ -66,6 +66,15 @@ class SupportController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if (!$this->service->findOne($id)) {
+            return response()->json([
+                'error' => 'Not Found'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        $this->service->delete( $id);
+
+            return response()->json([], Response::HTTP_NO_CONTENT);
+        }
     }
-}
+
