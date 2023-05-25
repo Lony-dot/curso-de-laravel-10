@@ -1,4 +1,13 @@
-<h1>Listagem dos suportes</h1>
+@extends('admin/layouts/app')
+
+@section('title', 'Fórum')
+
+@section('header')
+    <h1>Listagem de Suportes</h1>
+@endsection
+
+@section('content')
+
 
 <a href="{{ route('supports.create') }}">Criar dúvida</a>
 
@@ -27,3 +36,5 @@
 <x-pagination
      :paginator="$supports"
      :appends="$filters" />
+
+@endsection
