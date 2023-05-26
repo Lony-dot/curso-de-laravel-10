@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 
 class SupportController extends Controller
 {
-
     public function __construct(
         protected SupportService $service
     ) {}
@@ -21,7 +20,7 @@ class SupportController extends Controller
     {
         $supports = $this->service->paginate(
             page: $request->get('page', 1),
-            totalPerPage: $request->get('per_page', 1),
+            totalPerPage: $request->get('per_page', 6),
             filter: $request->filter,
         );
 
@@ -32,12 +31,12 @@ class SupportController extends Controller
 
     public function show(string $id)
     {
-        //Support::find($id)
-        //Support::where('id', '$id')->first //where: onde id é igual o valor de $id e recupera o primeiro valor usando first
-        if(!$support = $this->service->findOne($id)) {
+        // Support::find($id)
+        // Support::where('id', $id)->first();
+        // Support::where('id', '!=', $id)->first();
+        if (!$support = $this->service->findOne($id)) {
             return back();
         }
-        //dd($support->subject);
 
         return view('admin/supports/show', compact('support'));
     }
@@ -54,14 +53,14 @@ class SupportController extends Controller
         );
 
         return redirect()
-                ->route('supports.index');
+                ->route('supports.index')
+                ->with('message', 'Cadastrado com sucesso!');
     }
 
     public function edit(string $id)
     {
-       // if(!$support = $support->where('id', $id)->first()) {
-       if(!$support = $this->service->findOne($id)) {
-
+        // if (!$support = $support->where('id', $id)->first()) {
+        if (!$support = $this->service->findOne($id)) {
             return back();
         }
 
@@ -70,24 +69,25 @@ class SupportController extends Controller
 
     public function update(StoreUpdateSupport $request, Support $support, string $id)
     {
-
         $support = $this->service->update(
-            UpdateSupportDTO::makeFromRequest($request)
+            UpdateSupportDTO::makeFromRequest($request),
         );
+
         if (!$support) {
             return back();
         }
 
-        return redirect()->route('supports.index');
+        return redirect()
+                ->route('supports.index')
+                ->with('message', 'Atualizado com sucesso!');
     }
 
     public function destroy(string $id)
     {
         $this->service->delete($id);
 
-
-        return redirect()->route('supports.index');
+        return redirect()
+                ->route('supports.index')
+                ->with('message', 'Deletado com sucesso!');
     }
-
-
 }
